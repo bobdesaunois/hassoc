@@ -65,6 +65,6 @@ generateOutput x properties outputString
     | x >= (length properties) = outputString
     | x <  (length properties) = generateOutput ((+1) x) properties output
         
-        where output    = (outputString ++ generated) ++ "\n"   :: String
-              generated = delimiter (codeify (properties !! x)) :: String
-              delimiter = appendDelimiter x properties          :: String
+        where output    = (outputString ++ generated) ++ "\n"
+              generated = delimiter (codeify (properties !! x))
+              delimiter = appendDelimiter x properties
