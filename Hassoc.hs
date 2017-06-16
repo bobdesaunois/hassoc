@@ -39,8 +39,8 @@ run = do
 
     inputContents <- readFile inputFile
 
-    let preOutput = "$array = array (\n"
-    let output = preOutput ++ (generateOutput 0 (words inputContents) "")
+    let preOutput = "$array = array (\n" :: String
+    let output = preOutput ++ (generateOutput 0 (words inputContents) "") :: String
 
     writeFile outputFile output
 
@@ -52,7 +52,7 @@ codeify string = "\t\"" ++ string ++ "\" => \"\""
 appendDelimiter :: Int -> [String] -> String -> String
 appendDelimiter x properties codeString = do
     
-    let propertiesLength = (-1) + (length properties)
+    let propertiesLength = (-1) + (length properties) :: Int
     if x >= propertiesLength
         then codeString ++ ");"
         else codeString ++ ","
@@ -65,6 +65,6 @@ generateOutput x properties outputString
     | x >= (length properties) = outputString
     | x <  (length properties) = generateOutput ((+1) x) properties output
         
-        where output    = (outputString ++ generated) ++ "\n"
-              generated = delimiter (codeify (properties !! x))
-              delimiter = appendDelimiter x properties
+        where output    = (outputString ++ generated) ++ "\n"   :: String
+              generated = delimiter (codeify (properties !! x)) :: String
+              delimiter = appendDelimiter x properties          :: String
