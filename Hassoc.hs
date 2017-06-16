@@ -14,7 +14,7 @@ Description:
 module Hassoc
 ( 
     main
-) 
+)
 where
 
 import System.IO
@@ -38,5 +38,33 @@ main :: IO ()
 main = do
 
     inputContents <- readFile inputFile
-    let properties = words inputContents
-    print properties
+
+    let preOutput = "<?php\n$array = array (\n"
+    let output = preOutput ++ (generateOutput 0 (words inputContents) "")
+
+    writeFile outputFile output
+
+
+codeify :: String -> String
+codeify string = "\t\"" ++ string ++ "\" => \"\""
+
+
+appendDelimiter :: Int -> [String] -> String -> String
+appendDelimiter x properties codeString = do
+    
+    let propertiesLength = (-1) + (length properties)
+    if x >= propertiesLength
+        then codeString ++ ");"
+        else codeString ++ ","
+
+
+-- TODO Optimise this with a foldr
+generateOutput :: Int -> [String] -> String -> String
+generateOutput x properties outputString
+
+    | x >= (length properties) = outputString
+    | x <  (length properties) = generateOutput ((+1) x) properties output
+        
+        where output    = (outputString ++ generated) ++ "\n"
+              generated = delimiter (codeify (properties !! x))
+              delimiter = appendDelimiter x properties
