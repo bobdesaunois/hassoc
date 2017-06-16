@@ -13,7 +13,7 @@ Description:
 
 module Hassoc
 ( 
-    main
+    run
 )
 where
 
@@ -34,8 +34,8 @@ outputFile = "output.txt"
 -- Functions
 -----------------------------------------------------------
 
-main :: IO ()
-main = do
+run :: IO ()
+run = do
 
     inputContents <- readFile inputFile
 
