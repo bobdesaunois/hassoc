@@ -39,7 +39,7 @@ main = do
 
     inputContents <- readFile inputFile
 
-    let preOutput = "<?php\n$array = array (\n"
+    let preOutput = "$array = array (\n"
     let output = preOutput ++ (generateOutput 0 (words inputContents) "")
 
     writeFile outputFile output
