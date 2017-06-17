@@ -37,7 +37,7 @@ outputFile = "output.txt"
 run :: IO ()
 run = do
 
-    inputContents <- readFile inputFile
+    inputContents <- readFile inputFile :: IO String
 
     let preOutput = "$array = array (\n" :: String
     let output = preOutput ++ (generateOutput 0 (words inputContents) "") :: String
